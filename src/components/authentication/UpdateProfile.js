@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from "react-router-dom";
+import CenterContainer from "./CenterContainer";
 
 function UpdateProfile() {
     const emailRef = useRef();
@@ -19,7 +20,7 @@ function UpdateProfile() {
             return setError('Password do not match.');
         }
 
-        if (passwordRef.current.value.length < 6) {
+        if (passwordRef.current.value.length > 0 && passwordRef.current.value.length < 6) {
             return setError('Password length should be greater than 6.');
         }
         
@@ -36,7 +37,7 @@ function UpdateProfile() {
         }
         
         Promise.all(promises).then(() => {
-            navigate("/");
+            navigate("/user");
         }).catch(() => {
             setError('Failed to update profile.')
         }).finally(() => {
@@ -45,7 +46,7 @@ function UpdateProfile() {
     }
 
     return (
-        <>
+        <CenterContainer>
             <Card>
             <Card.Body>
                 <h2 className="text-center mb-4">Update Profile</h2>
@@ -70,9 +71,9 @@ function UpdateProfile() {
             </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Link to={"/"} style={{ textDecoration: "none" }}>Cancel</Link>
+                <Link to={"/user"} style={{ textDecoration: "none" }}>Cancel</Link>
             </div>
-        </>
+        </CenterContainer>
     );
 }
 

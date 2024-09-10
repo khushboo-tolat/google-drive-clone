@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from "react-router-dom";
+import CenterContainer from "./CenterContainer";
 
-function Dashboard() {
+function Profile() {
     const [error, setError] = useState("");
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Dashboard() {
     }
 
     return (
-        <>
+        <CenterContainer>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Profile</h2>
@@ -38,8 +39,8 @@ function Dashboard() {
                     Log Out
                 </Button>
             </div>
-        </>
+        </CenterContainer>
     );
 }
 
-export default Dashboard
+export default Profile

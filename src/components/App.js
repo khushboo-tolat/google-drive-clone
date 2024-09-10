@@ -2,19 +2,27 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "../contexts/AuthContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Signup from "./Signup";
-import Dashboard from "./Dashboard";
-import Login from "./Login"
-import PrivateRoute from "./PrivateRoute";
-import ForgotPassword from "./ForgotPassword";
-import UpdateProfile from "./UpdateProfile";
-
+import Signup from "./authentication/Signup";
+import Profile from "./authentication/Profile";
+import Login from "./authentication/Login"
+import PrivateRoute from "./authentication/PrivateRoute";
+import ForgotPassword from "./authentication/ForgotPassword";
+import UpdateProfile from "./authentication/UpdateProfile";
+import Dashboard from "./google-drive/Dashboard";
 
 function App() {
     const router = createBrowserRouter([
         {
             path: "/",
             element: <PrivateRoute component={Dashboard} />,
+        },
+        {
+            path: "/user",
+            element: <PrivateRoute component={Profile} />,
+        },
+        {
+            path: "update-profile",
+            element: <PrivateRoute component={UpdateProfile} />,
         },
         {
             path: "signup",
@@ -29,26 +37,15 @@ function App() {
             element: <ForgotPassword />,
         },
         {
-            path: "update-profile",
-            element: <PrivateRoute component={UpdateProfile} />,
-        },
-        {
             path: "*",
             element: <Login />,
         },
     ]);
 
     return (
-        <Container
-          className="d-flex align-items-center justify-content-center"
-          style={{ minHeight: "100vh" }}
-        >
-            <div style={{ minWidth: "400px" }}>
-                <AuthProvider>
-                    <RouterProvider router={router}/>
-                </AuthProvider>
-            </div>
-        </Container>
+        <AuthProvider>
+            <RouterProvider router={router}/>
+        </AuthProvider>        
     );
 }
 
